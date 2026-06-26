@@ -1,6 +1,5 @@
 .clients {
-  background-color: var(--bg-light);
-  color: var(--text-dark);
+  background-color: var(--bg-darker);
 }
 
 .clients-container {
@@ -10,67 +9,50 @@
   text-align: center;
 }
 
-.clients-header {
-  margin-bottom: 50px;
-}
-
-.clients-header .subtitle {
-  color: var(--primary-orange);
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.clients-header h2 {
-  font-size: 36px;
-  font-weight: 700;
-  margin-top: 10px;
-  color: #111;
-}
-
 .clients-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 40px;
-  max-width: 900px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 1000px;
 }
 
 .client-logo {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 24px;
-  color: #888;
-  transition: all 0.3s ease;
-  filter: grayscale(100%);
-  opacity: 0.6;
+  justify-content: center;
+  gap: 12px;
+  font-size: 28px;
+  color: var(--text-muted);
+  padding: 20px !important;
+  transition: all 0.4s ease;
+  filter: grayscale(100%) opacity(0.6);
   cursor: pointer;
 }
 
 .client-logo span {
-  font-size: 18px;
-  font-weight: 600;
-  font-family: Arial, sans-serif;
-  letter-spacing: -0.5px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
 .client-logo:hover {
-  filter: grayscale(0%);
-  opacity: 1;
-  color: var(--text-dark);
+  filter: grayscale(0%) opacity(1);
+  color: var(--primary);
+  transform: translateY(-5px);
 }
 
 @media (max-width: 768px) {
   .clients-grid {
-    gap: 20px;
-  }
-  .client-logo {
-    width: calc(33.333% - 20px);
-    justify-content: center;
+    grid-template-columns: repeat(3, 1fr);
   }
   .client-logo span {
     display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .clients-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }

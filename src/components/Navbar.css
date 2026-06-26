@@ -3,17 +3,20 @@
   top: 0;
   left: 0;
   width: 100%;
-  padding: 20px 0;
+  padding: 24px 0;
   z-index: 1000;
-  transition: all 0.3s ease;
+  transition: padding 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   background-color: transparent;
+  border-bottom: 1px solid transparent;
 }
 
 .navbar.scrolled {
-  background-color: rgba(31, 31, 31, 0.95);
-  backdrop-filter: blur(10px);
-  padding: 15px 0;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 16px 0;
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .nav-container {
@@ -24,23 +27,24 @@
 
 .logo h2 {
   color: var(--text-light);
-  font-size: 24px;
-  font-weight: 700;
+  font-size: 26px;
+  font-weight: 800;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+  margin: 0;
 }
 
 .logo span {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 30px;
-  height: 30px;
-  background-color: var(--text-light);
-  color: var(--bg-dark);
-  border-radius: 50%;
-  font-size: 18px;
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: var(--text-light);
+  border-radius: 12px;
+  font-size: 20px;
 }
 
 .nav-menu-wrapper {
@@ -51,7 +55,7 @@
 
 .nav-links {
   display: flex;
-  gap: 30px;
+  gap: 32px;
 }
 
 .nav-links a {
@@ -59,10 +63,26 @@
   font-weight: 500;
   font-size: 15px;
   transition: color 0.3s ease;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--primary);
+  transition: width 0.3s ease;
 }
 
 .nav-links a:hover {
-  color: var(--primary-orange);
+  color: var(--primary);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
 }
 
 .mobile-menu-icon {
@@ -81,7 +101,7 @@
     top: 100%;
     left: 0;
     width: 100%;
-    background-color: rgba(31, 31, 31, 0.98);
+    background-color: var(--bg-dark);
     flex-direction: column;
     padding: 30px 0;
     gap: 25px;

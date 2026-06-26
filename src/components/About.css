@@ -1,120 +1,170 @@
+.about {
+  background-color: var(--bg-darker);
+  position: relative;
+  overflow: hidden;
+}
+
+.about::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 50vw;
+  height: 50vw;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+  opacity: 0.15;
+  z-index: 0;
+}
+
 .about-container {
   display: flex;
-  gap: 60px;
+  gap: 80px;
   align-items: center;
+  position: relative;
+  z-index: 1;
 }
 
 .about-images {
   flex: 1;
+  position: relative;
 }
 
 .img-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 15px;
-  align-items: start;
+  display: flex;
+  gap: 30px;
+  position: relative;
 }
 
-.img-grid img {
+.img-wrapper {
+  position: relative;
+  width: 55%;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.img-wrapper.secondary {
+  width: 45%;
+  margin-top: 60px;
+  margin-left: -20%;
+  z-index: 2;
+}
+
+.img-wrapper img {
   width: 100%;
-  border-radius: 8px;
+  height: 100%;
   object-fit: cover;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  transition: transform 0.5s ease;
 }
 
-.img-grid img:hover {
-  transform: scale(1.02);
+.img-wrapper:hover img {
+  transform: scale(1.05);
 }
 
-.img-1 {
-  height: 200px;
+.experience-badge {
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 3;
 }
 
-.img-2 {
-  height: 250px;
-  grid-row: span 2;
+.experience-badge h3 {
+  font-size: 42px;
+  color: var(--primary);
+  line-height: 1;
 }
 
-.img-group {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-  height: 100px;
-}
-
-.img-3 {
-  height: 100%;
-}
-
-.orange-block {
-  background-color: var(--primary-orange);
-  border-radius: 8px;
-  height: 100%;
-}
-
-.img-4 {
-  height: 300px;
-  grid-column: 2;
-  margin-top: -100px;
+.experience-badge p {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-light);
+  line-height: 1.2;
 }
 
 .about-content {
   flex: 1;
 }
 
-.subtitle {
-  color: var(--primary-orange);
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 15px;
-  display: block;
+.about-content .section-title {
+  margin-bottom: 30px;
 }
 
-.about-content h2 {
-  font-size: 42px;
-  font-weight: 700;
-  line-height: 1.2;
-  margin-bottom: 25px;
-  color: #111;
+.about-desc {
+  margin-bottom: 30px;
 }
 
-.about-content p {
+.about-desc p {
   color: var(--text-muted);
   margin-bottom: 20px;
-  font-size: 15px;
+  font-size: 16px;
+  line-height: 1.8;
 }
 
-.about-content .btn {
-  margin-top: 15px;
+.about-desc .lead-text {
+  font-size: 18px;
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+.mt-4 {
+  margin-top: 16px;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float 6s ease-in-out infinite;
+  animation-delay: 2s;
 }
 
 @media (max-width: 992px) {
   .about-container {
     flex-direction: column;
-    gap: 40px;
+    gap: 60px;
   }
-  .about-images, .about-content {
+  .about-images {
     width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
   }
-  .img-4 {
-    margin-top: 0;
+  .about-content {
+    text-align: center;
+  }
+  .experience-badge {
+    bottom: 20px;
+    right: 20px;
   }
 }
 
 @media (max-width: 576px) {
   .img-grid {
-    grid-template-columns: 1fr;
+    flex-direction: column;
+    gap: 20px;
   }
-  .img-2 {
-    grid-row: auto;
+  .img-wrapper, .img-wrapper.secondary {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 0;
   }
-  .img-4 {
-    grid-column: 1;
-  }
-  .about-content h2 {
-    font-size: 32px;
+  .experience-badge {
+    position: relative;
+    bottom: 0;
+    right: 0;
+    width: max-content;
+    margin: -40px auto 0;
   }
 }

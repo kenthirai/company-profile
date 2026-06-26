@@ -1,27 +1,30 @@
 import React from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import About from './components/About';
-import Stats from './components/Stats';
-import Services from './components/Services';
-import Gallery from './components/Gallery';
-import Team from './components/Team';
-import Clients from './components/Clients';
-import Footer from './components/Footer';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import Landing from './pages/Landing';
+import Admin from './pages/Admin';
+import Login from './pages/Login';
+
+const ProtectedRoute = ({ children }) => {
+  const token = localStorage.getItem('adminToken');
+  if (!token) {
+    return <Navigate to="/admin/login" replace />;
+  }
+  return children;
+};
 
 function App() {
   return (
-    <>
-      <Navbar />
-      <Hero />
-      <About />
-      <Stats />
-      <Services />
-      <Gallery />
-      <Team />
-      <Clients />
-      <Footer />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/admin/login" element={<Login />} />
+        <Route path="/admin/*" element={
+          <ProtectedRoute>
+            <Admin />
+          </ProtectedRoute>
+        } />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

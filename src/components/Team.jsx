@@ -1,68 +1,59 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Team.css';
-import { FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { FaTwitter, FaLinkedin, FaGithub } from 'react-icons/fa';
 
 const Team = () => {
+  const [teamData, setTeamData] = useState(null);
+
+  const [teamMembers, setTeamMembers] = useState([]);
+
+  useEffect(() => {
+    fetch('/api/content?type=team')
+      .then((res) => res.json())
+      .then((data) => setTeamData(data))
+      .catch(console.error);
+      
+    fetch('/api/members')
+      .then((res) => res.json())
+      .then((data) => {
+        if(Array.isArray(data)) setTeamMembers(data);
+      })
+      .catch(console.error);
+  }, []);
+
+  const title = teamData?.title || "Meet Our Experts";
+  const description = teamData?.description || "Our team of professionals is dedicated to delivering the best results for your business.";
+
   return (
-    <section id="team" className="section team">
+    <section className="section team">
       <div className="container">
-        <div className="section-header text-center">
-          <span className="subtitle">The Minds Behind</span>
-          <h2>Our Team</h2>
+        <div className="section-header">
+          <span className="section-subtitle">OUR TEAM</span>
+          <h2 className="section-title">{title}</h2>
+          <p style={{color: 'var(--text-muted)', maxWidth: '600px', margin: '0 auto'}}>{description}</p>
         </div>
+        
         <div className="team-grid">
-          <div className="team-card">
-            <div className="team-img">
-              <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Team 1" />
-              <div className="team-social">
-                <a href="#"><FaLinkedin /></a>
-                <a href="#"><FaTwitter /></a>
+          {teamMembers.length > 0 ? (
+            teamMembers.map(member => (
+              <div key={member.id} className="glass-card team-card">
+                <div className="team-img">
+                  <img src={member.image_url || 'https://via.placeholder.com/400'} alt={member.name} />
+                  <div className="team-social">
+                    <a href={member.twitter_url || '#'}><FaTwitter /></a>
+                    <a href={member.linkedin_url || '#'}><FaLinkedin /></a>
+                    <a href={member.github_url || '#'}><FaGithub /></a>
+                  </div>
+                </div>
+                <div className="team-info">
+                  <h3>{member.name}</h3>
+                  <p className="text-gradient">{member.role}</p>
+                </div>
               </div>
-            </div>
-            <div className="team-info">
-              <h3>John Doe</h3>
-              <p>CEO & Founder</p>
-            </div>
-          </div>
-          <div className="team-card">
-            <div className="team-img">
-              <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Team 2" />
-              <div className="team-social">
-                <a href="#"><FaLinkedin /></a>
-                <a href="#"><FaTwitter /></a>
-              </div>
-            </div>
-            <div className="team-info">
-              <h3>Jane Smith</h3>
-              <p>Lead Developer</p>
-            </div>
-          </div>
-          <div className="team-card">
-            <div className="team-img">
-              <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Team 3" />
-              <div className="team-social">
-                <a href="#"><FaLinkedin /></a>
-                <a href="#"><FaTwitter /></a>
-              </div>
-            </div>
-            <div className="team-info">
-              <h3>Michael Brown</h3>
-              <p>UI/UX Designer</p>
-            </div>
-          </div>
-          <div className="team-card">
-            <div className="team-img">
-              <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Team 4" />
-              <div className="team-social">
-                <a href="#"><FaLinkedin /></a>
-                <a href="#"><FaTwitter /></a>
-              </div>
-            </div>
-            <div className="team-info">
-              <h3>Sarah Wilson</h3>
-              <p>Project Manager</p>
-            </div>
-          </div>
+            ))
+          ) : (
+            <p style={{textAlign: 'center', width: '100%', color: 'var(--text-muted)'}}>Belum ada anggota tim.</p>
+          )}
         </div>
       </div>
     </section>

@@ -1,0 +1,11 @@
+name = "company-profile"
+compatibility_date = "2024-03-20"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "tukang-web-db"
+database_id = "local-tukang-web-db" # ID ini hanya untuk lokal. Nanti di dashboard Cloudflare harus di-update.
+
+[[r2_buckets]]
+binding = "MEDIA_BUCKET"
+bucket_name = "tukang-web-media"
